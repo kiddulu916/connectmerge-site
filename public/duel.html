@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Connect Merge — Duel Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 480px;
+             margin: 60px auto; padding: 0 24px; text-align: center; }
+      .btn { display: inline-block; margin: 12px 8px; padding: 14px 28px;
+             border-radius: 8px; text-decoration: none; font-weight: 600;
+             font-size: 1rem; }
+      .ios { background: #000; color: #fff; }
+      .android { background: #01875f; color: #fff; }
+    </style>
+  </head>
+  <body>
+    <h1>Connect Merge</h1>
+    <p>Someone challenged you to a duel. Download the app to play.</p>
+    <a class="btn ios"
+       href="https://apps.apple.com/app/id<YOUR_APP_STORE_ID>">
+      Download on the App Store
+    </a>
+    <a class="btn android"
+       href="https://play.google.com/store/apps/details?id=com.kiddulu.connect_merge">
+      Get it on Google Play
+    </a>
+    <script>
+      // Try to open the app if installed.
+      const rest = location.pathname.replace(/^\/duel\//, '');
+      if (rest) window.location = 'connectmerge://duel/' + rest;
+    </script>
+  </body>
+  </html>
