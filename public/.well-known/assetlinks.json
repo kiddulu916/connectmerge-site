@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kiddulu.connect_merge",
+      "sha256_cert_fingerprints": [
+        "44:CE:F0:9E:4F:66:66:D3:41:2F:08:08:67:4B:FA:6E:08:F6:89:6F:D6:D9:4A:85:28:1C:1A:E3:6C:EE:D8:54"
+      ]
+    }
+  }
+]
