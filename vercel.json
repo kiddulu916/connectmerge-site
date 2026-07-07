@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/invite/:code", "destination": "/invite.html" },
-    { "source": "/duel/:path*",  "destination": "/duel.html" }
+    { "source": "/invite/:code", "destination": "/link.html" },
+    { "source": "/duel/:path*",  "destination": "/link.html" }
   ],
   "headers": [
     {

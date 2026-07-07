@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect Merge</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#060818">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/icon.png" sizes="512x512">
+  <link rel="apple-touch-icon" href="/assets/images/icon.png">
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">
+        <img src="/assets/images/icon.png" width="30" height="30" alt="" aria-hidden="true">
+        Connect Merge
+      </a>
+    </div>
+  </header>
+
+  <main class="link-shell">
+    <div class="container">
+      <div class="card link-card">
+
+        <div class="card-icon" style="margin:0 auto 18px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6-6 6M18 6l-6 6 6 6"/></svg>
+        </div>
+
+        <h1 id="headline">Connect Merge</h1>
+        <p id="subline">Loading your invite…</p>
+
+        <div class="link-actions">
+          <button type="button" class="btn btn-primary btn-full" id="open-app-btn">Open in app</button>
+        </div>
+
+        <div id="fallback" hidden>
+          <p style="margin-top:24px;">The app isn't out yet — but you'll be first to know.</p>
+
+          <form class="waitlist-form" id="waitlist-form-link" style="margin-inline:auto; max-width:100%;" novalidate>
+            <label for="email-link" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
+            <input type="email" id="email-link" name="email" placeholder="you@email.com" autocomplete="email" required>
+            <button type="submit" class="btn btn-primary">Notify me</button>
+          </form>
+          <div class="form-success" id="waitlist-success-link" role="status" aria-live="polite" style="margin-inline:auto;">You're on the list — we'll email you the moment Connect Merge launches.</div>
+
+          <div class="store-row">
+            <span class="store-chip">App Store — coming soon</span>
+            <span class="store-chip">Google Play — coming soon</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Connect Merge</span>
+        <div class="footer-links">
+          <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Flip to true once the app is live on the stores — the store chips
+    // become real links and take over as the primary CTA automatically.
+    var APP_PUBLISHED = false;
+
+    var segments = location.pathname.split('/').filter(Boolean);
+    var type = segments[0];
+    var headlineEl = document.getElementById('headline');
+    var sublineEl = document.getElementById('subline');
+    var deepLink = null;
+
+    if (type === 'duel' && segments.length >= 5) {
+      var name = decodeURIComponent(segments[4]);
+      var score = segments[3];
+      var diff = segments[2];
+      var diffLabel = diff.charAt(0).toUpperCase() + diff.slice(1);
+      headlineEl.textContent = name + ' challenged you to beat ' + score + ' on ' + diffLabel + '.';
+      sublineEl.textContent = 'Open Connect Merge to accept the duel.';
+      deepLink = 'connectmerge://duel/' + segments.slice(1).join('/');
+    } else if (type === 'invite' && segments.length >= 2) {
+      headlineEl.textContent = "You've been invited to Connect Merge.";
+      sublineEl.textContent = 'Open Connect Merge to accept the invite.';
+      deepLink = 'connectmerge://invite/' + segments[1];
+    } else {
+      headlineEl.textContent = 'Connect Merge';
+      sublineEl.textContent = 'A chain-merge puzzle — everyone plays the same board, every day.';
+    }
+
+    var openBtn = document.getElementById('open-app-btn');
+    function attemptOpen() {
+      if (deepLink) window.location = deepLink;
+    }
+    if (deepLink) {
+      attemptOpen();
+      openBtn.addEventListener('click', attemptOpen);
+    } else {
+      openBtn.setAttribute('hidden', '');
+    }
+
+    if (!APP_PUBLISHED) {
+      document.getElementById('fallback').removeAttribute('hidden');
+      openBtn.textContent = 'Already have the app? Try opening it';
+      openBtn.classList.remove('btn-primary');
+      openBtn.classList.add('btn-ghost');
+    }
+
+    var linkForm = document.getElementById('waitlist-form-link');
+    linkForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = linkForm.querySelector('input[type="email"]');
+      if (!input.value || !input.checkValidity()) {
+        input.reportValidity();
+        return;
+      }
+      linkForm.setAttribute('hidden', '');
+      document.getElementById('waitlist-success-link').classList.add('is-visible');
+    });
+  </script>
+</body>
+</html>
