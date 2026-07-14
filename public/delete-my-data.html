@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delete My Data — Connect Merge</title>
+  <meta name="theme-color" content="#060818">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/icon.png" sizes="512x512">
+  <link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/">
+        <img src="/assets/images/icon.png" width="30" height="30" alt="" aria-hidden="true">
+        Connect Merge
+      </a>
+    </div>
+  </header>
+
+  <main class="page-narrow prose">
+    <span class="eyebrow">Permanently erase your account</span>
+    <h1 class="section-title">Delete My Data</h1>
+
+    <p>Submitting this form permanently deletes your account: scores, leaderboard
+    entries, friends, and hashed contacts. <strong>This cannot be undone.</strong>
+    Your Player ID is shown on your Profile screen in the app (tap it to copy).</p>
+
+    <form id="form" class="page-form">
+      <label for="username">Username <span class="hint">(as shown on the leaderboard)</span></label>
+      <input id="username" maxlength="40" autocomplete="off">
+
+      <label for="player-id">Player ID <span class="hint">(required — paste from your Profile screen)</span></label>
+      <input id="player-id" required autocomplete="off" spellcheck="false"
+             placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+             pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}">
+
+      <label for="reason">Why are you deleting your data? <span class="hint">(optional — helps us improve)</span></label>
+      <textarea id="reason" maxlength="2000"></textarea>
+
+      <label for="confirm">Type <strong>DELETE</strong> to confirm</label>
+      <input id="confirm" required autocomplete="off" autocapitalize="characters">
+
+      <button id="submit" type="submit" class="btn btn-danger" style="margin-top:1.6rem;">Permanently delete my data</button>
+      <p id="error" class="form-error" hidden></p>
+    </form>
+
+    <div id="done" class="form-success" role="status" aria-live="polite">
+      <strong>Request processed.</strong> If an account with this Player ID
+      existed, its data has been permanently deleted. You may need to reinstall
+      the app or clear its data to start fresh on your device.
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; 2026 Connect Merge</span>
+        <div class="footer-links">
+          <a href="/">Home</a>
+          <a href="/privacy-policy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const ENDPOINT = 'https://nnoqqchqprfikhabrrjt.supabase.co/functions/v1/delete-account';
+    const form = document.getElementById('form');
+    const error = document.getElementById('error');
+    const button = document.getElementById('submit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.hidden = true;
+      if (document.getElementById('confirm').value.trim() !== 'DELETE') {
+        error.textContent = 'Please type DELETE (in capitals) to confirm.';
+        error.hidden = false;
+        return;
+      }
+      button.disabled = true;
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            player_id: document.getElementById('player-id').value.trim(),
+            username: document.getElementById('username').value.trim(),
+            reason: document.getElementById('reason').value.trim(),
+          }),
+        });
+        if (!res.ok) throw new Error('bad status');
+        form.style.display = 'none';
+        document.getElementById('done').classList.add('is-visible');
+      } catch {
+        error.textContent = 'Something went wrong. Check the Player ID and try again.';
+        error.hidden = false;
+        button.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

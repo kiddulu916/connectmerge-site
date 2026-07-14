@@ -623,6 +623,59 @@ input:focus-visible {
 
 html { scroll-behavior: smooth; }
 
+/* ---------- Legal / utility pages (privacy-policy, delete-my-data) ---------- */
+
+.page-narrow {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 56px 24px 64px;
+}
+
+.prose p { margin-top: 0.9rem; color: var(--text-dim); }
+.prose h2 { font-size: 1.15rem; font-weight: 700; margin-top: 2.2rem; }
+.prose ul { list-style: disc; padding-left: 1.4rem; margin-top: 0.9rem; color: var(--text-dim); }
+.prose li { margin-top: 0.5rem; }
+.prose strong { color: var(--text); }
+.prose a { color: var(--cyan); }
+.prose a:hover { text-decoration: underline; }
+
+.page-form label {
+  display: block;
+  font-weight: 600;
+  margin: 1.5rem 0 0.4rem;
+}
+
+.page-form .hint {
+  font-weight: 400;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+
+.page-form input,
+.page-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.page-form ::placeholder { color: var(--text-faint); }
+.page-form textarea { min-height: 110px; resize: vertical; }
+
+.btn-danger {
+  background: #e5484d;
+  color: #fff;
+  box-shadow: 0 8px 24px -8px rgba(229, 72, 77, 0.5);
+}
+
+.btn-danger:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -8px rgba(229, 72, 77, 0.6); }
+.btn-danger:active { transform: translateY(0); }
+
+.form-error { color: #ff8a8e; font-size: 0.9rem; margin-top: 0.8rem; }
+
 /* ---------- Deep-link page (link.html) specific ---------- */
 
 .link-shell {
