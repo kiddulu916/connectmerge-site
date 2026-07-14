@@ -429,55 +429,35 @@ input:focus-visible {
 
 .hero-visual { display: flex; justify-content: center; }
 
-/* ---------- Waitlist form ---------- */
+/* ---------- Store badges ---------- */
 
-.waitlist-form {
+.store-badges {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-top: 28px;
-  max-width: 440px;
 }
 
-@media (min-width: 520px) {
-  .waitlist-form { flex-direction: row; }
+.store-badges--centered { justify-content: center; }
+
+.store-badges img {
+  width: auto;
+  height: 52px;
 }
 
-.waitlist-form input[type="email"] {
-  flex: 1;
-  min-height: 48px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 1rem;
-  font-family: inherit;
+.store-badge-coming-soon img {
+  filter: grayscale(1);
+  opacity: 0.45;
 }
 
-.waitlist-form input[type="email"]::placeholder { color: var(--text-faint); }
-.waitlist-form input[type="email"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
-.form-note {
-  margin-top: 10px;
-  font-size: 0.85rem;
+.store-badge-coming-soon p {
+  margin-top: 4px;
   color: var(--text-faint);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  text-align: center;
 }
-
-.form-success {
-  display: none;
-  margin-top: 18px;
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
-  background: rgba(34, 211, 238, 0.1);
-  border: 1px solid rgba(34, 211, 238, 0.3);
-  color: var(--text);
-  font-size: 0.95rem;
-}
-
-.form-success.is-visible { display: block; }
-.waitlist-form.is-submitted,
-.waitlist-form[hidden] { display: none; }
 
 /* ---------- Grids ---------- */
 
@@ -709,23 +689,4 @@ html { scroll-behavior: smooth; }
   flex-direction: column;
   gap: 12px;
   margin-top: 28px;
-}
-
-.store-row {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 18px;
-  flex-wrap: wrap;
-}
-
-.store-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px dashed var(--border-strong);
-  color: var(--text-faint);
-  font-size: 0.85rem;
 }

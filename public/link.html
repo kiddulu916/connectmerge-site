@@ -38,18 +38,16 @@
         </div>
 
         <div id="fallback" hidden>
-          <p style="margin-top:24px;">The app isn't out yet — but you'll be first to know.</p>
+          <p style="margin-top:24px;">Don't have the app yet? Grab it below.</p>
+        </div>
 
-          <form class="waitlist-form" id="waitlist-form-link" style="margin-inline:auto; max-width:100%;" novalidate>
-            <label for="email-link" class="sr-only" style="position:absolute;left:-9999px;">Email address</label>
-            <input type="email" id="email-link" name="email" placeholder="you@email.com" autocomplete="email" required>
-            <button type="submit" class="btn btn-primary">Notify me</button>
-          </form>
-          <div class="form-success" id="waitlist-success-link" role="status" aria-live="polite" style="margin-inline:auto;">You're on the list — we'll email you the moment Connect Merge launches.</div>
-
-          <div class="store-row">
-            <span class="store-chip">App Store — coming soon</span>
-            <span class="store-chip">Google Play — coming soon</span>
+        <div class="store-badges store-badges--centered">
+          <a href="https://play.google.com/store/apps/details?id=com.kidd.connect_merge" target="_blank" rel="noopener">
+            <img src="/assets/images/google-play-badge.png" alt="Get it on Google Play">
+          </a>
+          <div class="store-badge-coming-soon">
+            <img src="/assets/images/app-store-badge.svg" alt="">
+            <p>Coming soon</p>
           </div>
         </div>
 
@@ -71,8 +69,7 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Flip to true once the app is live on the stores — the store chips
-    // become real links and take over as the primary CTA automatically.
+    // Flip to true at public launch to restore the primary "Open in app" CTA styling.
     var APP_PUBLISHED = false;
 
     var segments = location.pathname.split('/').filter(Boolean);
@@ -116,17 +113,6 @@
       openBtn.classList.add('btn-ghost');
     }
 
-    var linkForm = document.getElementById('waitlist-form-link');
-    linkForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var input = linkForm.querySelector('input[type="email"]');
-      if (!input.value || !input.checkValidity()) {
-        input.reportValidity();
-        return;
-      }
-      linkForm.setAttribute('hidden', '');
-      document.getElementById('waitlist-success-link').classList.add('is-visible');
-    });
   </script>
 </body>
 </html>
