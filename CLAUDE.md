@@ -16,21 +16,22 @@ Static marketing + deep-link site for the Connect Merge mobile game (Flutter app
 Three pages plus a deep-link handler, all sharing one stylesheet (`public/assets/css/site.css`):
 
 - `public/index.html` — app-store landing page
-- `public/link.html` — universal-link landing page. `vercel.json` rewrites `/invite/:code` and `/duel/:path*` to it; inline JS parses `location.pathname` to build a `connectmerge://` deep link and attempt to open the app. Expected duel URL shape: `/duel/<id>/<difficulty>/<score>/<name>` (5 segments).
+- `public/link.html` — universal-link landing page. `vercel.json` rewrites `/invite/:code` and `/duel/:path*` to it; `public/assets/js/link.js` parses `location.pathname` to build a `connectmerge://` deep link and attempt to open the app. Expected duel URL shape: `/duel/<id>/<difficulty>/<score>/<name>` (5 segments).
 - `public/privacy-policy.html`, `public/delete-my-data.html` — legal pages
 
 Things that must stay in sync when touching deep links:
 1. Rewrite sources in `vercel.json`
-2. Path parsing in `link.html`'s inline script
+2. Path parsing in `public/assets/js/link.js`
 3. `paths` in `public/.well-known/apple-app-site-association` and the Android intent filters covered by `public/.well-known/assetlinks.json`
 
 ## Current state / known placeholders
 
-- `APP_PUBLISHED = false` in `link.html` — flip to true at launch to restore the primary "Open in app" CTA styling
+- `APP_PUBLISHED = false` in `public/assets/js/link.js` — flip to true at launch to restore the primary "Open in app" CTA styling
 - `apple-app-site-association` still has `REPLACE_WITH_TEAM_ID` — iOS universal links won't work until the real Apple Team ID is set
 
 ## Conventions
 
 - `.well-known` files are served with explicit `Content-Type: application/json` headers via `vercel.json` — keep those header rules if editing it
 - `link.html` uses `noindex`; the landing page does not
+- A site-wide `Content-Security-Policy` header in `vercel.json` sets `script-src 'self'` — page JS must live in external files under `public/assets/js/`, never inline `<script>` blocks. New external fetch/script origins must be added to the policy.
 - `.env.local` is gitignored — never commit env files
