@@ -1,11 +1,15 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.kidd.connect_merge",
       "sha256_cert_fingerprints": [
-        "44:CE:F0:9E:4F:66:66:D3:41:2F:08:08:67:4B:FA:6E:08:F6:89:6F:D6:D9:4A:85:28:1C:1A:E3:6C:EE:D8:54"
+        "44:CE:F0:9E:4F:66:66:D3:41:2F:08:08:67:4B:FA:6E:08:F6:89:6F:D6:D9:4A:85:28:1C:1A:E3:6C:EE:D8:54",
+        "58:04:87:B5:A5:2E:1E:4C:47:F6:EB:0B:24:52:4B:9B:FF:5C:26:BD:49:84:E4:12:9C:AC:73:7D:88:43:31:3A"
       ]
     }
   }
