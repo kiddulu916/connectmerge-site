@@ -17,10 +17,19 @@ if (type === 'duel' && segments.length >= 5) {
   headlineEl.textContent = name + ' challenged you to beat ' + score + ' on ' + diffLabel + '.';
   sublineEl.textContent = 'Open Connect Merge to accept the duel.';
   deepLink = 'connectmerge://duel/' + segments.slice(1).join('/');
-} else if (type === 'invite' && segments.length >= 2) {
+} else if (type === 'invite' && segments.length >= 2 && /^[A-Z2-7]{8}$/.test(segments[1])) {
+  var code = segments[1];
   headlineEl.textContent = "You've been invited to Connect Merge.";
   sublineEl.textContent = 'Open Connect Merge to accept the invite.';
-  deepLink = 'connectmerge://invite/' + segments[1];
+  deepLink = 'connectmerge://invite/' + code;
+  // Carry the friend code through a fresh install: the Play Install Referrer
+  // (read on first launch) is what auto-links the two friends. Without this the
+  // code is lost across the store install.
+  var playAnchor = document.querySelector('.store-badges a[href*="play.google.com"]');
+  if (playAnchor) {
+    playAnchor.href += (playAnchor.href.indexOf('?') === -1 ? '?' : '&') +
+      'referrer=' + encodeURIComponent('code=' + code);
+  }
 } else {
   headlineEl.textContent = 'Connect Merge';
   sublineEl.textContent = 'A chain-merge puzzle — everyone plays the same board, every day.';
